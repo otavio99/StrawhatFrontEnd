@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import {
@@ -8,57 +8,9 @@ import {
   Link
 } from "react-router-dom";
 
-function CadastroAssociado() {
-  const initialFormState = {
-    id : null,
-    nome : '',
-    dataDeNascimento : '',
-    cpf : '',
-    rg : '',
-    endereco : '',
-    telefone : ''
-  }
-  const [associado, setAssociado] = useState(initialFormState)
-  const status = { submit : false, status : '', message : ''}
-  const [formStatus, setFormStatus] = useState(status)
+function MostrarAssociado(props) {
 
-  const handleInputChange = event => {
-	   const { name, value } = event.target
-	   setAssociado({ ...associado, [name]: value })
-	}
-
-  const addAssociado = associado => {
-    Axios(
-        {
-          url: "http://localhost:8080/associados",
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          data: associado
-        }
-      )
-    	.then(function (response) {
-        if(response.status === 201){
-            setFormStatus({
-              submit : true,
-              status : 'success',
-              message: 'Associado(a) ' + associado.nome + ' cadastrado com sucesso'
-            })
-        }
-    	})
-    	.catch(function (error) {
-        setFormStatus({
-          submit : true,
-          status : 'danger',
-          message: 'Erro ao cadastrar associado'
-        })
-    	})
-    	.then(function () {
-    		// always executed
-    	}
-    )
-	}
+  const [associado, setAssociado] = useState(props.location.state.detail)
 
   return (
     <div className="container mt-4">
@@ -68,31 +20,24 @@ function CadastroAssociado() {
 				<div className="col-lg-6 mt-4">
 					<div className="card form">
 						<div className="card-body">
-							<h5 className="card-title">Cadastro Associado</h5>
+							<h5 className="card-title">Informações do associado</h5>
 
-							<form
-                onSubmit={event => {
-                  event.preventDefault()
-                  if (!associado.nome || !associado.cpf) return
-                  addAssociado(associado)
-                }}
-              >
+							<form>
 								<div className="form-row">
 									<div className="form-group col-md-6">
 										<label htmlFor="inputEmail4">Nome</label>
-										<input
+										<input disabled
                       type="text"
                       name="nome"
                       className="form-control"
                       id="nome"
                       placeholder="Nome Completo"
                       value={associado.nome}
-                      onChange={handleInputChange}
                     />
 									</div>
 									<div className="form-group col-md-6">
 										<label htmlFor="inputPassword4">Data de Nascimento</label>
-                    <input
+                    <input disabled
                       type="text"
                       pattern="\d{1,2}/\d{1,2}/\d{4}"
                       name="dataDeNascimento"
@@ -101,77 +46,62 @@ function CadastroAssociado() {
                       value=""
                       placeholder="Dia/Mes/Ano"
                       value={associado.dataDeNascimento}
-                      onChange={handleInputChange}
                     />
                   </div>
 								</div>
 								<div className="form-row">
 									<div className="form-group col-md-6">
 										<label htmlFor="inputEmail4">Cpf</label>
-										<input
+										<input disabled disabled
                       type="text"
                       name="cpf"
                       className="form-control"
                       id="cpf"
                       placeholder="Cpf"
                       value={associado.cpf}
-                      onChange={handleInputChange}
                     />
 									</div>
 									<div className="form-group col-md-6">
 										<label htmlFor="inputPassword4">Rg</label>
-										<input
+										<input disabled
                       type="text"
                       name="rg"
                       className="form-control"
                       id="rg"
                       placeholder="RG"
                       value={associado.rg}
-                      onChange={handleInputChange}
                     />
 									</div>
 								</div>
 								<div className="form-group">
 									<label htmlFor="inputAddress2">Endereço</label>
-									<input
+									<input disabled
                     type="text"
                     name="endereco"
                     className="form-control"
                     id="endereco"
                     placeholder="Bairro, Rua e Número"
                     value={associado.endereco}
-                    onChange={handleInputChange}
                   />
 								</div>
 								<div className="form-group">
 									<label htmlFor="inputAddress2">Telefone</label>
-									<input
+									<input disabled
                     type="text"
                     name="telefone"
                     className="form-control"
                     id="telefone"
                     placeholder="(67) 9 9999-9999"
                     value={associado.telefone}
-                    onChange={handleInputChange}
                   />
 								</div>
-								<button type="submit" id = "cadastroAssociado" className="btn btn-primary" value='submit'>
-                  Adicione Associado
-                </button>
 							</form>
 						</div>
 					</div>
-          {formStatus.submit ? (
-            <div className={"alert alert-" + formStatus.status}>
-              {formStatus.message}
-            </div>
-          ):(
-            <div></div>
-          )}
   			</div>
       </div>
     </div>
   );
 }
 
-export default CadastroAssociado;
+export default MostrarAssociado;

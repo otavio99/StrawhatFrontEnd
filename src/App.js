@@ -6,6 +6,9 @@ import {
   Link
 } from "react-router-dom";
 import CadastroAssociado from './Associado/CadastroAssociado'
+import ListaAssociado from './Associado/ListaAssociado'
+import AtualizarAssociado from './Associado/AtualizarAssociado'
+import MostrarAssociado from './Associado/MostrarAssociado'
 
 function App() {
 
@@ -44,7 +47,7 @@ function App() {
         						<div className="card-body">
         							<h5 className="card-title">Special title treatment</h5>
         							<p className="card-text">Breve descrição sobre essa opção</p>
-        							<Link to="#" className="btn btn-primary">Go somewhere</Link>
+                      <Link to="/ListaAssociado" onClick={changeHomeState} className="btn btn-primary">Ir para a Lista</Link>
         						</div>
         					</div>
         				</div>
@@ -92,6 +95,11 @@ function App() {
             <Route path="/CadastroAssociado">
               <CadastroAssociado />
             </Route>
+            <Route path="/ListaAssociado">
+              <ListaAssociado />
+            </Route>
+            <Route path="/Atualizar" component={AtualizarAssociado} />
+            <Route path="/Mostrar" component={MostrarAssociado} />
           </Switch>
         </Router>
       )}

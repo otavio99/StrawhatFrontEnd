@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import {
@@ -8,18 +8,12 @@ import {
   Link
 } from "react-router-dom";
 
-function CadastroAssociado() {
-  const initialFormState = {
-    id : null,
-    nome : '',
-    dataDeNascimento : '',
-    cpf : '',
-    rg : '',
-    endereco : '',
-    telefone : ''
-  }
-  const [associado, setAssociado] = useState(initialFormState)
+function AtualizarAssociado(props) {
+
+  const [associado, setAssociado] = useState(props.location.state.detail)
+
   const status = { submit : false, status : '', message : ''}
+
   const [formStatus, setFormStatus] = useState(status)
 
   const handleInputChange = event => {
@@ -27,11 +21,11 @@ function CadastroAssociado() {
 	   setAssociado({ ...associado, [name]: value })
 	}
 
-  const addAssociado = associado => {
+  const updateAssociado = associado => {
     Axios(
         {
-          url: "http://localhost:8080/associados",
-          method: 'post',
+          url: "http://localhost:8080/associados/" + associado.id,
+          method: 'put',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -39,11 +33,11 @@ function CadastroAssociado() {
         }
       )
     	.then(function (response) {
-        if(response.status === 201){
+        if(response.status === 201 || response.status === 204){
             setFormStatus({
               submit : true,
               status : 'success',
-              message: 'Associado(a) ' + associado.nome + ' cadastrado com sucesso'
+              message: 'Associado(a) ' + associado.nome + ' atualizado com sucesso'
             })
         }
     	})
@@ -51,7 +45,7 @@ function CadastroAssociado() {
         setFormStatus({
           submit : true,
           status : 'danger',
-          message: 'Erro ao cadastrar associado'
+          message: 'Erro ao atualizar associado'
         })
     	})
     	.then(function () {
@@ -74,7 +68,7 @@ function CadastroAssociado() {
                 onSubmit={event => {
                   event.preventDefault()
                   if (!associado.nome || !associado.cpf) return
-                  addAssociado(associado)
+                  updateAssociado(associado)
                 }}
               >
 								<div className="form-row">
@@ -156,7 +150,7 @@ function CadastroAssociado() {
                   />
 								</div>
 								<button type="submit" id = "cadastroAssociado" className="btn btn-primary" value='submit'>
-                  Adicione Associado
+                  Atualize Associado
                 </button>
 							</form>
 						</div>
@@ -174,4 +168,4 @@ function CadastroAssociado() {
   );
 }
 
-export default CadastroAssociado;
+export default AtualizarAssociado;
