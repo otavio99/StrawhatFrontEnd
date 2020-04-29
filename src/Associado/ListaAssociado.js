@@ -1,3 +1,8 @@
+/*
+ *This component is in charge of listing the associates and offering options like update, view and delete,
+ *as well as a search bar for finding a specific associate.
+*/
+
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Axios, {CancelToken} from 'axios';
@@ -14,44 +19,61 @@ import deleteAssociado from './DeleteAssociado';
 
 function ListaAssociado(){
 
+  /*
+   *A list for holding the associates that are brought from the api.
+  */
   const [associados, setAssociados] = useState([])
+
+  /*
+   *A hook used to push a route to the router. Kind like a redirect, but this does not re-render the page.
+  */
   const history =   useHistory()
 
-    useEffect( () => {
-        Axios(
-            {
-              url: "http://localhost:8080/associados",
-              method: 'get',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-            }
-          )
-        	.then(function (response) {
-            if(response.status === 200){
-              setAssociados(response.data)
-            }
-        	})
-        	.catch(function (error) {
-
-        	})
-        	.then(function () {
-        		// always executed
-        	}
+  /*
+   *A hook for controlling asynchrounous calls to the api for listing associates.
+   *Axios for some reason keeps calling the api nonstop so I put a condition of
+   *That makes axios trigger once.
+  */
+  useEffect( () => {
+      Axios(
+          {
+            url: "http://localhost:8080/associados",
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          }
         )
-      },
-      [associados.length > 0 || associados.length == 0]
-    )
-      //<td><Link to={"/delete/" + associado.id} type="button" className="btn btn-danger fa fa-times"></Link></td>
+      	.then(function (response) {
+          if(response.status === 200){
+            setAssociados(response.data)
+          }
+      	})
+      	.catch(function (error) {
 
+      	})
+      	.then(function () {
+      		// always executed
+      	}
+      )
+    },
+    [associados.length > 0 || associados.length == 0]
+  )
+
+  /*
+   *This function takes care of removing the associate from the buffer list and
+   *by calling the delete method in the api. This is that the page doesn't reload everytime
+   *an associate is deleted.
+  */
   function remover(id){
+    //removing the associate from the buffer list of associates
     setAssociados(associados.filter(associado => associado.id !== id))
+
+    //calling the api for removing the associate from database
     deleteAssociado(id)
   }
 
-
   return (
-
       <div className="container mt-4">
 
         <Link to="/" className="btn">Voltar</Link>

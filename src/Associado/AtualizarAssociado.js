@@ -1,3 +1,6 @@
+/*
+ *This component is in charge of updating an associate
+*/
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
@@ -10,17 +13,31 @@ import {
 
 function AtualizarAssociado(props) {
 
+  /*
+   *props contains a given associate that was selected back at ListaAssociado component,
+   *so it's being created an state to the form from this associate which gonna be uset to set
+   *data in the input fields for updating.
+  */
   const [associado, setAssociado] = useState(props.location.state.detail)
 
+  /*
+   *Creating a state for the status of the data being submited.
+   *this state will holde data necessary to display the state of submission to the user.
+  */
   const status = { submit : false, status : '', message : ''}
-
   const [formStatus, setFormStatus] = useState(status)
 
+  /*
+   *Handle the changes in the inputs so the data is set on the associate state
+  */
   const handleInputChange = event => {
 	   const { name, value } = event.target
 	   setAssociado({ ...associado, [name]: value })
 	}
 
+  /*
+   *call to the api for updating the associate, triggered by an onSubmit event from the form.
+  */
   const updateAssociado = associado => {
     Axios(
         {

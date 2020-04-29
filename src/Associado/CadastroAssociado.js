@@ -1,3 +1,9 @@
+/*
+ *This component is in charge of registering new associate. The main thing to notice is that
+ *the form used to collect the data has a associate state, everytime the user write something on the input
+ *fields the data is set on this state.
+*/
+
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
@@ -9,6 +15,9 @@ import {
 } from "react-router-dom";
 
 function CadastroAssociado() {
+  /*
+   *Constant object that mocks the state associate
+  */
   const initialFormState = {
     id : null,
     nome : '',
@@ -18,16 +27,31 @@ function CadastroAssociado() {
     endereco : '',
     telefone : ''
   }
-  const [associado, setAssociado] = useState(initialFormState)
-  const status = { submit : false, status : '', message : ''}
-  const [formStatus, setFormStatus] = useState(status)
 
-  const handleInputChange = event => {
+  /*
+   *Creating a state with the hook useState
+  */
+  const [associado, setAssociado] = useState(initialFormState)
+
+  /*
+   *Creating a state for the status of the data being submited.
+   *this state will holde data necessary to display the state of submission to the user.
+  */
+  const status = { submit : false, status : '', message : ''}
+  const [ submitStatus, setSubmitStatus] = useState(status)
+
+  /*
+   *Handle the changes in the inputs so the data is set on the associate state
+  */
+  function handleInputChange(event){
 	   const { name, value } = event.target
 	   setAssociado({ ...associado, [name]: value })
 	}
 
-  const addAssociado = associado => {
+  /*
+   *Function that peforms the submission of the data to the api for registering
+  */
+  function addAssociado(associado){
     Axios(
         {
           url: "http://localhost:8080/associados",
@@ -40,7 +64,7 @@ function CadastroAssociado() {
       )
     	.then(function (response) {
         if(response.status === 201){
-            setFormStatus({
+            setSubmitStatus({
               submit : true,
               status : 'success',
               message: 'Associado(a) ' + associado.nome + ' cadastrado com sucesso'
@@ -48,7 +72,7 @@ function CadastroAssociado() {
         }
     	})
     	.catch(function (error) {
-        setFormStatus({
+        setSubmitStatus({
           submit : true,
           status : 'danger',
           message: 'Erro ao cadastrar associado'
@@ -161,9 +185,9 @@ function CadastroAssociado() {
 							</form>
 						</div>
 					</div>
-          {formStatus.submit ? (
-            <div className={"alert alert-" + formStatus.status}>
-              {formStatus.message}
+          { submitStatus.submit ? (
+            <div className={"alert alert-" +  submitStatus.status}>
+              { submitStatus.message}
             </div>
           ):(
             <div></div>

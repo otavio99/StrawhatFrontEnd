@@ -1,3 +1,6 @@
+/*
+ *This component is in charge of just deleting a given associate.
+*/
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Axios, {CancelToken} from 'axios';

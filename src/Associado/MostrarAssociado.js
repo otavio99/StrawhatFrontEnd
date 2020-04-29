@@ -1,3 +1,8 @@
+/*
+ *this component shows the user selected on the list in ListaAssociado. This displays the database
+ *in the same form used to register and updating, but the fields are disabled so the user cannot do
+ *anything with it.
+*/
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';

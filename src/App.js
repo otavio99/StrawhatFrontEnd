@@ -1,3 +1,13 @@
+/*
+ *This is the home of the application. It's main function is to serve as a gateway for the
+ *other functionalities of the entire application. The main problem faced when developing this
+ *component is that in order for it's layout do disappear when rendering the other ones, a state
+ *needs to be set. For that, useState hook is being used and changeHomeState is a function which
+ *is used to set false for being at "home" when the user click on a link that goes for another page.
+ *This is not the ideal solution but right now it's the better one. I good way to improve things in here
+ *is to get the current route state and from that decides whick page should be rendered.
+*/
+
 import React, { useState, Fragment } from 'react';
 import {
   BrowserRouter as Router,
@@ -12,8 +22,15 @@ import MostrarAssociado from './Associado/MostrarAssociado'
 
 function App() {
 
+  /*
+   *This is a state for the home and its function that alter it.
+  */
   const [isHome, setIsHome] = useState(true)
 
+  /*
+   *A function that gonna be used in the onClick events that are responsible for sending
+   *the user to another page.
+  */
   const changeHomeState = event => {
 		if (isHome){
       setIsHome(false)
