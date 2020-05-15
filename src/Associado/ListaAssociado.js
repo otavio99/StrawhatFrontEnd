@@ -17,7 +17,7 @@ import {
 import deleteAssociado from './DeleteAssociado';
 
 
-function ListaAssociado(){
+const ListaAssociado = () => {
 
   /*
    *A list for holding the associates that are brought from the api.
@@ -27,7 +27,7 @@ function ListaAssociado(){
   /*
    *A hook used to push a route to the router. Kind like a redirect, but this does not re-render the page.
   */
-  const history =   useHistory()
+  const history = useHistory()
 
   /*
    *A hook for controlling asynchrounous calls to the api for listing associates.
@@ -44,15 +44,15 @@ function ListaAssociado(){
             },
           }
         )
-      	.then(function (response) {
+      	.then(response => {
           if(response.status === 200){
             setAssociados(response.data)
           }
       	})
-      	.catch(function (error) {
+      	.catch(error => {
 
       	})
-      	.then(function () {
+      	.then(() => {
       		// always executed
       	}
       )
@@ -65,7 +65,7 @@ function ListaAssociado(){
    *by calling the delete method in the api. This is that the page doesn't reload everytime
    *an associate is deleted.
   */
-  function remover(id){
+  const remover = id => {
     //removing the associate from the buffer list of associates
     setAssociados(associados.filter(associado => associado.id !== id))
 
@@ -76,7 +76,7 @@ function ListaAssociado(){
   return (
       <div className="container mt-4">
 
-        <Link to="/" className="btn">Voltar</Link>
+        <Link to="/" className="btn">Home</Link>
         <div className="row justify-content-center">
 
           <div className="col-lg-8 mt-4">
@@ -111,24 +111,30 @@ function ListaAssociado(){
                           <tr>
                             <th scope="row">{associado.id}</th>
                             <td>{associado.nome}</td>
-                            <td><button type="button" className="btn btn-success fa fa-eye" onClick={
-                              () =>history.push({
-                                      pathname: '/Mostrar',
-                                      state: { detail: associado }
-                                    })
-                            }></button></td>
-                            <td><button type="button" className="btn btn-primary fa fa-pencil" onClick={
-                              () =>history.push({
-                                      pathname: '/Atualizar',
-                                      state: { detail: associado }
-                                    })
-                            }></button></td>
+                            <td>
+                              <button type="button" className="btn btn-success fa fa-eye" onClick={
+                                () => history.push({
+                                        pathname: '/Mostrar',
+                                        state: { detail: associado }
+                                      })
+                              }></button>
+                            </td>
+                            <td>
+                              <button type="button" className="btn btn-primary fa fa-pencil" onClick={
+                                () => history.push({
+                                        pathname: '/Atualizar',
+                                        state: { detail: associado }
+                                      })
+                              }></button>
+                            </td>
 
-                            <td><button type="button" className="btn btn-danger fa fa-times" onClick={
-                              event =>{
-                                remover(associado.id)
-                              }
-                            }></button></td>
+                            <td>
+                              <button type="button" className="btn btn-danger fa fa-times" onClick={
+                                event => {
+                                  remover(associado.id)
+                                }
+                              }></button>
+                            </td>
                           </tr>
                         )
                       )

@@ -13,7 +13,7 @@ import {
   Redirect
 } from "react-router-dom";
 
-function deleteAssociado (id) {
+const deleteAssociado = id => {
     //const {id} = useParams()
 
     if ( id > 0 ){
@@ -26,15 +26,15 @@ function deleteAssociado (id) {
             },
           }
         )
-      	.then(function (response) {
+      	.then(response => {
 
             console(response.data)
 
       	})
-      	.catch(function (error) {
+      	.catch(error => {
 
       	})
-      	.then(function() {
+      	.then(() => {
       		// always executed
       	   }
         )

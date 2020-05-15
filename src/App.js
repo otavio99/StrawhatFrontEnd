@@ -20,7 +20,7 @@ import ListaAssociado from './Associado/ListaAssociado'
 import AtualizarAssociado from './Associado/AtualizarAssociado'
 import MostrarAssociado from './Associado/MostrarAssociado'
 
-function App() {
+const App = () => {
 
   /*
    *This is a state for the home and its function that alter it.
@@ -62,8 +62,9 @@ function App() {
         				<div className="col-lg-6 mt-4">
         					<div className="card">
         						<div className="card-body">
-        							<h5 className="card-title">Special title treatment</h5>
-        							<p className="card-text">Breve descrição sobre essa opção</p>
+        							<h5 className="card-title">Lista de associados</h5>
+        							<p className="card-text">Acesse a lista de associados registrados e realize operações de visualização,
+                      edição e remoção.</p>
                       <Link to="/ListaAssociado" onClick={changeHomeState} className="btn btn-primary">Ir para a Lista</Link>
         						</div>
         					</div>

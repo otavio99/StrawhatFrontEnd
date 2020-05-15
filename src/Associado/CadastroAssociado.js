@@ -11,10 +11,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 
-function CadastroAssociado() {
+const CadastroAssociado = () => {
   /*
    *Constant object that mocks the state associate
   */
@@ -34,6 +35,11 @@ function CadastroAssociado() {
   const [associado, setAssociado] = useState(initialFormState)
 
   /*
+   *A hook used to push a route to the router. Kind like a redirect, but this does not re-render the page.
+  */
+  const history = useHistory()
+
+  /*
    *Creating a state for the status of the data being submited.
    *this state will holde data necessary to display the state of submission to the user.
   */
@@ -43,7 +49,7 @@ function CadastroAssociado() {
   /*
    *Handle the changes in the inputs so the data is set on the associate state
   */
-  function handleInputChange(event){
+  const handleInputChange = event => {
 	   const { name, value } = event.target
 	   setAssociado({ ...associado, [name]: value })
 	}
@@ -51,7 +57,7 @@ function CadastroAssociado() {
   /*
    *Function that peforms the submission of the data to the api for registering
   */
-  function addAssociado(associado){
+  const addAssociado = associado => {
     Axios(
         {
           url: "http://localhost:8080/associados",
@@ -62,23 +68,29 @@ function CadastroAssociado() {
           data: associado
         }
       )
-    	.then(function (response) {
-        if(response.status === 201){
-            setSubmitStatus({
+    	.then(response => {
+          if(response.status === 201){
+              setSubmitStatus(
+                {
+                  submit : true,
+                  status : 'success',
+                  message: 'Associado(a) ' + associado.nome + ' cadastrado com sucesso'
+                }
+            )
+          }
+      	}
+      )
+    	.catch(error => {
+          setSubmitStatus(
+            {
               submit : true,
-              status : 'success',
-              message: 'Associado(a) ' + associado.nome + ' cadastrado com sucesso'
-            })
-        }
-    	})
-    	.catch(function (error) {
-        setSubmitStatus({
-          submit : true,
-          status : 'danger',
-          message: 'Erro ao cadastrar associado'
-        })
-    	})
-    	.then(function () {
+              status : 'danger',
+              message: 'Erro ao cadastrar associado'
+            }
+          )
+      	}
+      )
+    	.then(() => {
     		// always executed
     	}
     )
@@ -86,7 +98,7 @@ function CadastroAssociado() {
 
   return (
     <div className="container mt-4">
-      <Link to="/" className="btn">Voltar</Link>
+      <Link to="/" className="btn">Home</Link>
 			<div className="row justify-content-center">
 
 				<div className="col-lg-6 mt-4">
@@ -182,6 +194,12 @@ function CadastroAssociado() {
 								<button type="submit" id = "cadastroAssociado" className="btn btn-primary" value='submit'>
                   Adicione Associado
                 </button>
+                &nbsp;
+                <button type="button" className="btn btn-default" onClick={
+                  () => history.push({
+                          pathname: '/'
+                        })
+                }>Voltar</button>
 							</form>
 						</div>
 					</div>

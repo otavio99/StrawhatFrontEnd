@@ -8,7 +8,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 
 function AtualizarAssociado(props) {
@@ -26,6 +27,11 @@ function AtualizarAssociado(props) {
   */
   const status = { submit : false, status : '', message : ''}
   const [formStatus, setFormStatus] = useState(status)
+
+  /*
+   *A hook used to push a route to the router. Kind like a redirect, but this does not re-render the page.
+  */
+  const history = useHistory()
 
   /*
    *Handle the changes in the inputs so the data is set on the associate state
@@ -73,7 +79,7 @@ function AtualizarAssociado(props) {
 
   return (
     <div className="container mt-4">
-      <Link to="/" className="btn">Voltar</Link>
+      <Link to="/" className="btn">Home</Link>
 			<div className="row justify-content-center">
 
 				<div className="col-lg-6 mt-4">
@@ -169,6 +175,12 @@ function AtualizarAssociado(props) {
 								<button type="submit" id = "cadastroAssociado" className="btn btn-primary" value='submit'>
                   Atualize Associado
                 </button>
+                &nbsp;
+                <button type="button" className="btn btn-default" onClick={
+                  () => history.push({
+                          pathname: '/ListaAssociado'
+                        })
+                }>Voltar</button>
 							</form>
 						</div>
 					</div>

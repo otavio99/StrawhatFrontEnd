@@ -10,12 +10,18 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 
-function MostrarAssociado(props) {
+const MostrarAssociado = props => {
 
   const [associado, setAssociado] = useState(props.location.state.detail)
+
+  /*
+   *A hook used to push a route to the router. Kind like a redirect, but this does not re-render the page.
+  */
+  const history = useHistory()
 
   return (
     <div className="container mt-4">
@@ -100,6 +106,11 @@ function MostrarAssociado(props) {
                     value={associado.telefone}
                   />
 								</div>
+                <button type="button" className="btn btn-primary" onClick={
+                  () => history.push({
+                          pathname: '/ListaAssociado'
+                        })
+                }>Voltar</button>
 							</form>
 						</div>
 					</div>
