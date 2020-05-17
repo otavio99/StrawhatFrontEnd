@@ -19,6 +19,7 @@ import CadastroAssociado from './Associado/CadastroAssociado'
 import ListaAssociado from './Associado/ListaAssociado'
 import AtualizarAssociado from './Associado/AtualizarAssociado'
 import MostrarAssociado from './Associado/MostrarAssociado'
+import CadastroEntidade from './Entidades/CadastroEntidade'
 
 const App = () => {
 
@@ -54,7 +55,7 @@ const App = () => {
         							<p className="card-text">
         								Cadastro dos dado de um novo associado
         							</p>
-        							<Link to="/CadastroAssociado" onClick={changeHomeState} className="btn btn-primary">Ir para o Cadastro</Link>
+        							<Link to="/CadastroAssociado" onClick={changeHomeState} className="btn btn-primary">Ir para cadastro</Link>
         						</div>
         					</div>
         				</div>
@@ -65,7 +66,7 @@ const App = () => {
         							<h5 className="card-title">Lista de associados</h5>
         							<p className="card-text">Acesse a lista de associados registrados e realize operações de visualização,
                       edição e remoção.</p>
-                      <Link to="/ListaAssociado" onClick={changeHomeState} className="btn btn-primary">Ir para a Lista</Link>
+                      <Link to="/ListaAssociado" onClick={changeHomeState} className="btn btn-primary">Ir para lista</Link>
         						</div>
         					</div>
         				</div>
@@ -73,9 +74,9 @@ const App = () => {
         				<div className="col-lg-6 mt-4">
         					<div className="card">
         						<div className="card-body">
-        							<h5 className="card-title">Special title treatment</h5>
-        							<p className="card-text">Breve descrição sobre essa opção</p>
-        							<Link to="#" className="btn btn-primary">Go somewhere</Link>
+        							<h5 className="card-title">Cadastro de entidade</h5>
+        							<p className="card-text">Cadastro de entidades da religião</p>
+        							<Link to="/CadastroEntidade" onClick={changeHomeState} className="btn btn-primary">Ir para cadastro</Link>
         						</div>
         					</div>
         				</div>
@@ -116,6 +117,11 @@ const App = () => {
             <Route path="/ListaAssociado">
               <ListaAssociado />
             </Route>
+            <Route path="/CadastroEntidade">
+              <CadastroEntidade />
+            </Route>
+
+
             <Route path="/Atualizar" component={AtualizarAssociado} />
             <Route path="/Mostrar" component={MostrarAssociado} />
           </Switch>
