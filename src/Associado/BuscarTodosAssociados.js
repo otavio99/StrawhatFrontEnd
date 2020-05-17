@@ -15,34 +15,18 @@ import {
 } from "react-router-dom";
 
 
-function buscar(){
-  /*
-   *A hook for controlling asynchrounous calls to the api for listing associates.
-   *Axios for some reason keeps calling the api nonstop so I put a condition of
-   *That makes axios trigger once.
-  */
+const BuscarTodosAssociados = () => {
 
-  Axios(
-      {
-        url: "http://localhost:8080/associados",
-        method: 'get',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      }
-    )
-  	.then(function (response) {
-      if(response.status === 200){
-        return response.data
-      }
-  	})
-  	.catch(function (error) {
+  return Axios(
+          {
+            url: "http://localhost:8080/associados",
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          }
+        )
 
-  	})
-  	.then(function () {
-  		// always executed
-  	}
-  )
 }
 
-export default buscar;
+export default BuscarTodosAssociados;

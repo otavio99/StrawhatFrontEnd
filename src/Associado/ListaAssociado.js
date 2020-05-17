@@ -15,6 +15,7 @@ import {
   useHistory
 } from "react-router-dom";
 import deleteAssociado from './DeleteAssociado';
+import BuscarTodosAssociados from './BuscarTodosAssociados';
 
 
 const ListaAssociado = () => {
@@ -34,16 +35,9 @@ const ListaAssociado = () => {
    *Axios for some reason keeps calling the api nonstop so I put a condition of
    *That makes axios trigger once.
   */
+
   useEffect( () => {
-      Axios(
-          {
-            url: "http://localhost:8080/associados",
-            method: 'get',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-          }
-        )
+      BuscarTodosAssociados()
       	.then(response => {
           if(response.status === 200){
             setAssociados(response.data)
