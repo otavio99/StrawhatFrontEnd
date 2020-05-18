@@ -18,7 +18,7 @@ import deleteAssociado from './DeleteAssociado';
 import BuscarTodosAssociados from './BuscarTodosAssociados';
 
 
-const ListaAssociado = () => {
+const ListaAssociados = () => {
 
   /*
    *A list for holding the associates that are brought from the api.
@@ -103,12 +103,12 @@ const ListaAssociado = () => {
                     {
                       associados.map( associado => (
                           <tr>
-                            <th scope="row">{associado.id}</th>
+                            <td scope="row">{associado.id}</td>
                             <td>{associado.nome}</td>
                             <td>
                               <button type="button" className="btn btn-success fa fa-eye" onClick={
                                 () => history.push({
-                                        pathname: '/Mostrar',
+                                        pathname: '/MostrarAssociado',
                                         state: { detail: associado }
                                       })
                               }></button>
@@ -116,7 +116,7 @@ const ListaAssociado = () => {
                             <td>
                               <button type="button" className="btn btn-primary fa fa-pencil" onClick={
                                 () => history.push({
-                                        pathname: '/Atualizar',
+                                        pathname: '/AtualizarAssociado',
                                         state: { detail: associado }
                                       })
                               }></button>
@@ -148,4 +148,4 @@ const ListaAssociado = () => {
   );
 }
 
-export default ListaAssociado;
+export default ListaAssociados;

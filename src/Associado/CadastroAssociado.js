@@ -134,7 +134,6 @@ const CadastroAssociado = () => {
                       name="dataDeNascimento"
                       className="form-control"
                       id="dataNascimento"
-                      value=""
                       placeholder="Dia/Mes/Ano"
                       value={associado.dataDeNascimento}
                       onChange={handleInputChange}

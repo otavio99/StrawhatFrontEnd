@@ -16,10 +16,13 @@ import {
   Link
 } from "react-router-dom";
 import CadastroAssociado from './Associado/CadastroAssociado'
-import ListaAssociado from './Associado/ListaAssociado'
+import ListaAssociados from './Associado/ListaAssociados'
 import AtualizarAssociado from './Associado/AtualizarAssociado'
 import MostrarAssociado from './Associado/MostrarAssociado'
 import CadastroEntidade from './Entidades/CadastroEntidade'
+import ListaEntidades from './Entidades/ListaEntidades'
+import AtualizarEntidade from './Entidades/AtualizarEntidade'
+import MostrarEntidade from './Entidades/MostrarEntidade'
 
 const App = () => {
 
@@ -51,7 +54,7 @@ const App = () => {
         				<div className="col-lg-6 mt-4">
         					<div className="card">
         						<div className="card-body">
-        							<h5 className="card-title">Cadastro do Associado</h5>
+        							<h5 className="card-title">Cadastro do associado</h5>
         							<p className="card-text">
         								Cadastro dos dado de um novo associado
         							</p>
@@ -66,7 +69,7 @@ const App = () => {
         							<h5 className="card-title">Lista de associados</h5>
         							<p className="card-text">Acesse a lista de associados registrados e realize operações de visualização,
                       edição e remoção.</p>
-                      <Link to="/ListaAssociado" onClick={changeHomeState} className="btn btn-primary">Ir para lista</Link>
+                      <Link to="/ListaAssociados" onClick={changeHomeState} className="btn btn-primary">Ir para lista</Link>
         						</div>
         					</div>
         				</div>
@@ -84,9 +87,10 @@ const App = () => {
         				<div className="col-lg-6 mt-4">
         					<div className="card">
         						<div className="card-body">
-        							<h5 className="card-title">Special title treatment</h5>
-        							<p className="card-text">Breve descrição sobre essa opção</p>
-        							<Link to="#" className="btn btn-primary">Go somewhere</Link>
+        							<h5 className="card-title">Lista de entidades</h5>
+        							<p className="card-text">Acesse a lista de entidades registrados e realize operações de visualização,
+                      edição e remoção.</p>
+        							<Link to="/ListaEntidades" onClick={changeHomeState} className="btn btn-primary">Ir para lista</Link>
         						</div>
         					</div>
         				</div>
@@ -114,16 +118,22 @@ const App = () => {
             <Route path="/CadastroAssociado">
               <CadastroAssociado />
             </Route>
-            <Route path="/ListaAssociado">
-              <ListaAssociado />
+            <Route path="/ListaAssociados">
+              <ListaAssociados />
             </Route>
             <Route path="/CadastroEntidade">
               <CadastroEntidade />
             </Route>
 
+            <Route path="/ListaEntidades">
+              <ListaEntidades />
+            </Route>
 
-            <Route path="/Atualizar" component={AtualizarAssociado} />
-            <Route path="/Mostrar" component={MostrarAssociado} />
+
+            <Route path="/AtualizarAssociado" component={AtualizarAssociado} />
+            <Route path="/MostrarAssociado" component={MostrarAssociado} />
+            <Route path="/AtualizarEntidade" component={AtualizarEntidade} />
+            <Route path="/MostrarEntidade" component={MostrarEntidade} />
           </Switch>
         </Router>
       )}

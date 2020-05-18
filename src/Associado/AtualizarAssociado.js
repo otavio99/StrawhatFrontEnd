@@ -12,7 +12,7 @@ import {
   useHistory
 } from "react-router-dom";
 
-function AtualizarAssociado(props) {
+const AtualizarAssociado = (props) => {
 
   /*
    *props contains a given associate that was selected back at ListaAssociado component,
@@ -55,7 +55,7 @@ function AtualizarAssociado(props) {
           data: associado
         }
       )
-    	.then(function (response) {
+    	.then(response => {
         if(response.status === 201 || response.status === 204){
             setFormStatus({
               submit : true,
@@ -64,14 +64,14 @@ function AtualizarAssociado(props) {
             })
         }
     	})
-    	.catch(function (error) {
+    	.catch(error => {
         setFormStatus({
           submit : true,
           status : 'danger',
           message: 'Erro ao atualizar associado'
         })
     	})
-    	.then(function () {
+    	.then(() => {
     		// always executed
     	}
     )
@@ -85,7 +85,7 @@ function AtualizarAssociado(props) {
 				<div className="col-lg-6 mt-4">
 					<div className="card form">
 						<div className="card-body">
-							<h5 className="card-title">Cadastro Associado</h5>
+							<h5 className="card-title">Atualizar Associado</h5>
 
 							<form
                 onSubmit={event => {
